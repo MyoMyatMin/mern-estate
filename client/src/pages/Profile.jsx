@@ -128,7 +128,10 @@ export default function Profile() {
       const data = await res.json();
 
       if (data.success === false) {
-        setShowListingsError(true);
+        if (data.message == "Token expired") {
+          handleSignOut();
+        }
+        setShowListingsError(data.message);
         return;
       }
       setUserListings(data);
@@ -144,7 +147,6 @@ export default function Profile() {
       });
       const data = await res.json();
       if (data.success === false) {
-        console.log(data.message);
         return;
       }
       setUserListings((prev) =>
@@ -239,7 +241,7 @@ export default function Profile() {
         Show Listings
       </button>
       <p className="text-red-700">
-        {showListingsError ? "Error at showing listings" : ""}
+        {showListingsError ? showListingsError : ""}
       </p>
       {userListings && userListings.length > 0 && (
         <div className="flex flex-col gap-4">

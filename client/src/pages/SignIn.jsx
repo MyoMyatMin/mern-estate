@@ -41,8 +41,6 @@ export default function SignIn() {
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
-
-    console.log(error);
   };
   return (
     <div className="p-3 max-w-lg mx-auto">
